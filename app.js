@@ -108,6 +108,10 @@ const userData = {
     },
 }
 
+app.get(`/`, (req, res, next) => {
+    res.send(`Welcome to my test server.`)
+})
+
 app.get(`/comment/:id`, (req, res, next) => {
     const id = req.params.id
     console.log(`Fetching comment with id of ${id}`)
@@ -132,6 +136,11 @@ app.get(`/user/:id`, (req, res, next) => {
         console.log(`User with id ${id} was not found`)
         res.status(404).send('User not found')
     }
+})
+
+app.get(`/comments`, (req, res, next) => {
+    console.log(`Getting all comments`)
+    res.json(commentData)
 })
 
 app.listen(PORT, () => {
