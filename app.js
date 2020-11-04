@@ -65,6 +65,73 @@ const commentData = {
     },
 }
 
+const commentDataArr = [
+    {
+        id: 1,
+        user: 7,
+        timestamp: '1:00',
+        comment: 'This is a comment',
+        votes: 1,
+        replies: [],
+    },
+    {
+        id: 2,
+        user: 6,
+        timestamp: '2:00',
+        comment: 'Sample comment',
+        votes: 0,
+        replies: [],
+    },
+    {
+        id: 3,
+        user: 2,
+        timestamp: '1:30',
+        comment: 'Ouu a comment',
+        votes: 2,
+        replies: [1],
+    },
+    {
+        id: 4,
+        user: 1,
+        timestamp: '3:20',
+        comment: 'Yooo is this a comment?',
+        votes: 2,
+        replies: [5, 6],
+    },
+    {
+        id: 5,
+        user: 5,
+        timestamp: '12:30',
+        comment: 'Free will is a lie!',
+        votes: 6,
+        replies: [2, 3],
+    },
+    {
+        id: 6,
+        user: 3,
+        timestamp: '6:40',
+        comment: 'My head is big!',
+        votes: 0,
+        replies: [],
+    },
+    {
+        id: 7,
+        user: 4,
+        timestamp: '2:00',
+        comment: 'Science is the new law',
+        votes: 3,
+        replies: [],
+    },
+    {
+        id: 8,
+        user: 2,
+        timestamp: '5:00',
+        comment: 'Bill Clinton! Conspiracy!',
+        votes: 10,
+        replies: [],
+    },
+]
+
 const userData = {
     1: {
         name: 'Dowen Robinson',
@@ -141,6 +208,11 @@ app.get(`/user/:id`, (req, res, next) => {
 app.get(`/comments`, (req, res, next) => {
     console.log(`Getting all comments`)
     res.send(JSON.stringify(commentData))
+})
+
+app.get(`/comments_arr`, (req, res, next) => {
+    console.log(`Getting all comments: arr`)
+    res.send(JSON.stringify(commentDataArr))
 })
 
 app.listen(PORT, () => {
