@@ -140,7 +140,7 @@ app.get(`/user/:id`, (req, res, next) => {
 
 app.get(`/comments`, (req, res, next) => {
     console.log(`Getting all comments`)
-    res.json(JSON.stringify(commentData))
+    res.send(JSON.stringify(commentData))
 })
 
 app.listen(PORT, () => {
