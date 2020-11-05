@@ -212,7 +212,7 @@ app.get(`/comments`, (req, res, next) => {
 
 app.get(`/comments_arr`, (req, res, next) => {
     console.log(`Getting all comments: arr`)
-    res.send(JSON.stringify(commentDataArr))
+    res.send(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8]))
 })
 
 app.listen(PORT, () => {
