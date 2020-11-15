@@ -215,7 +215,7 @@ app.get(`/comments_arr`, (req, res, next) => {
     res.send(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8]))
 })
 
-app.get(`/comments_array`, (req, res, next) => {
+app.get(`/data`, (req, res, next) => {
     console.log(`Getting all comments: arr`)
     const newArr = commentDataArr.map((comment) => {
         return Object.assign({}, comment, { user: userData[comment.user] })
