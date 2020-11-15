@@ -217,7 +217,11 @@ app.get(`/comments_arr`, (req, res, next) => {
 
 app.get(`/comments_array`, (req, res, next) => {
     console.log(`Getting all comments: arr`)
-    res.send(JSON.stringify(commentDataArr))
+    const newArr = commentDataArr.map((comment) => {
+        return Object.assign({}, comment, { user: userData[comment.user] })
+    })
+
+    res.send(JSON.stringify(newArr))
 })
 
 app.listen(PORT, () => {
