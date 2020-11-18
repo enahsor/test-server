@@ -59,6 +59,7 @@ const comments = {
             time: 2,
             likes: 3,
             comment: 'useEffect to handle side-effects',
+            replies: 1,
         },
         {
             id: 2,
@@ -66,6 +67,7 @@ const comments = {
             time: 1,
             likes: 0,
             comment: 'I made a comment and its showing',
+            replies: 0,
         },
         {
             id: 3,
@@ -73,6 +75,7 @@ const comments = {
             time: 5,
             likes: 10,
             comment: 'Be bold as bold needs being.',
+            replies: 1,
         },
     ],
     2: [
@@ -82,6 +85,7 @@ const comments = {
             time: 2,
             likes: 7,
             comment: 'What kinda comment system is this? Its awesome!',
+            replies: 0,
         },
         {
             id: 5,
@@ -89,6 +93,7 @@ const comments = {
             time: 4,
             likes: 4,
             comment: 'Today I saw the most beautiful lady - shes my girlfriend',
+            replies: 1,
         },
     ],
     3: [],
