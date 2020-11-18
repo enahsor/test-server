@@ -6,133 +6,82 @@ const PORT = process.env.PORT || 8080
 
 app.use(cors())
 
-const commentData = {
-    1: {
-        user: 7,
-        timestamp: '1:00',
-        comment: 'This is a comment',
-        votes: 1,
-        replies: [],
-    },
-    2: {
-        user: 6,
-        timestamp: '2:00',
-        comment: 'Sample comment',
-        votes: 0,
-        replies: [],
-    },
-    3: {
-        user: 2,
-        timestamp: '1:30',
-        comment: 'Ouu a comment',
-        votes: 2,
-        replies: [1],
-    },
-    4: {
-        user: 1,
-        timestamp: '3:20',
-        comment: 'Yooo is this a comment?',
-        votes: 2,
-        replies: [5, 6],
-    },
-    5: {
-        user: 5,
-        timestamp: '12:30',
-        comment: 'Free will is a lie!',
-        votes: 6,
-        replies: [2, 3],
-    },
-    6: {
-        user: 3,
-        timestamp: '6:40',
-        comment: 'My head is big!',
-        votes: 0,
-        replies: [],
-    },
-    7: {
-        user: 4,
-        timestamp: '2:00',
-        comment: 'Science is the new law',
-        votes: 3,
-        replies: [],
-    },
-    8: {
-        user: 2,
-        timestamp: '5:00',
-        comment: 'Bill Clinton! Conspiracy!',
-        votes: 10,
-        replies: [],
-    },
+const videos = [1, 2, 3]
+
+const comments = {
+    1: [
+        {
+            id: 1,
+            user: 1,
+            time: 2,
+            likes: 3,
+            comment: 'useEffect to handle side-effects',
+        },
+        {
+            id: 2,
+            user: 2,
+            time: 1,
+            likes: 0,
+            comment: 'I made a comment and its showing',
+        },
+        {
+            id: 3,
+            user: 3,
+            time: 5,
+            likes: 10,
+            comment: 'Be bold as bold needs being.',
+        },
+    ],
+    2: [
+        {
+            id: 4,
+            user: 4,
+            time: 2,
+            likes: 7,
+            comment: 'What kinda comment system is this? Its awesome!',
+        },
+        {
+            id: 5,
+            user: 5,
+            time: 4,
+            likes: 4,
+            comment: 'Today I saw the most beautiful lady - shes my girlfriend',
+        },
+    ],
+    3: [],
 }
 
-const commentDataArr = [
-    {
-        id: 1,
-        user: 7,
-        timestamp: '1:00',
-        comment: 'This is a comment',
-        votes: 1,
-        replies: [],
-    },
-    {
-        id: 2,
-        user: 6,
-        timestamp: '2:00',
-        comment: 'Sample comment',
-        votes: 0,
-        replies: [],
-    },
-    {
-        id: 3,
-        user: 2,
-        timestamp: '1:30',
-        comment: 'Ouu a comment',
-        votes: 2,
-        replies: [1],
-    },
-    {
-        id: 4,
-        user: 1,
-        timestamp: '3:20',
-        comment: 'Yooo is this a comment?',
-        votes: 2,
-        replies: [5, 6],
-    },
-    {
-        id: 5,
-        user: 5,
-        timestamp: '12:30',
-        comment: 'Free will is a lie!',
-        votes: 6,
-        replies: [2, 3],
-    },
-    {
-        id: 6,
-        user: 3,
-        timestamp: '6:40',
-        comment: 'My head is big!',
-        votes: 0,
-        replies: [],
-    },
-    {
-        id: 7,
-        user: 4,
-        timestamp: '2:00',
-        comment: 'Science is the new law',
-        votes: 3,
-        replies: [],
-    },
-    {
-        id: 8,
-        user: 2,
-        timestamp: '5:00',
-        comment: 'Bill Clinton! Conspiracy!',
-        votes: 10,
-        replies: [],
-    },
-]
+const replies = {
+    1: [
+        {
+            id: 101,
+            user: 6,
+            time: 20,
+            likes: 100,
+            comment: 'I am replying to this comment.',
+        },
+    ],
+    3: [
+        {
+            id: 102,
+            user: 7,
+            time: 10,
+            likes: 100,
+            comment: 'I am replying to this comment with STYLE!!!',
+        },
+    ],
+    5: [
+        {
+            id: 103,
+            user: 8,
+            time: 30,
+            likes: 9,
+            comment: 'I am replying differently!',
+        },
+    ],
+}
 
-const userData = {
+const users = {
     1: {
         name: 'Dowen Robinson',
         photo:
@@ -179,49 +128,29 @@ app.get(`/`, (req, res, next) => {
     res.send(`Welcome to my test server.`)
 })
 
-app.get(`/comment/:id`, (req, res, next) => {
+app.get(`/videos`, (req, res, next) => {
+    res.send(videos)
+})
+
+app.get(`/video/:id`, (req, res, next) => {
+    const keys = Object.keys(comments)
     const id = req.params.id
-    console.log(`Fetching comment with id of ${id}`)
-    const data = commentData[id]
-    if (data) {
+
+    if (keys.includes(id)) {
+        const data = comments[id].map((comment) => {
+            const userid = comment.user
+            return { ...comment, user: users[userid] }
+        })
         res.send(data)
-        next()
-    } else {
-        console.log(`Comment with id ${id} was not found`)
-        res.status(404).send('Comment not found')
     }
+
+    res.status(404).send('Not found')
 })
 
-app.get(`/user/:id`, (req, res, next) => {
+app.get(`/replies/:id`, (req, res, next) => {
     const id = req.params.id
-    console.log(`Fetching user with id ${id}`)
-    const data = userData[id]
-    if (data) {
-        res.send(data)
-        next()
-    } else {
-        console.log(`User with id ${id} was not found`)
-        res.status(404).send('User not found')
-    }
-})
-
-app.get(`/comments`, (req, res, next) => {
-    console.log(`Getting all comments`)
-    res.send(JSON.stringify(commentData))
-})
-
-app.get(`/comments_arr`, (req, res, next) => {
-    console.log(`Getting all comments: arr`)
-    res.send(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8]))
-})
-
-app.get(`/data`, (req, res, next) => {
-    console.log(`Getting all comments: arr`)
-    const newArr = commentDataArr.map((comment) => {
-        return Object.assign({}, comment, { user: userData[comment.user] })
-    })
-
-    res.send(JSON.stringify(newArr))
+    const data = replies[id]
+    res.send(data)
 })
 
 app.listen(PORT, () => {
